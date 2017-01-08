@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 	<constant name="struts.devMode" value="false" />
+
+	<constant name="struts.action.extension" value="action, ,"/>
+	<constant name="struts.enable.SlashesInActionNames" value="true"/>
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="false"/>
+	<constant name="struts.patternMatcher" value="namedVariable" />
+   <constant name="struts.multipart.maxSize" value="10000000" />
+ 	
+	<package name="default" namespace="/" extends="struts-default">
+		
+		<result-types>
+			<result-type name="imageResult" class="com.stldesis.action.CustomImageBytesResult" />
+		</result-types>
+		
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="error"/>
+		</global-exception-mappings>
+		
+		<action name="imageAction" class="com.stldesis.action.ImageAction">
+			<result name="success" type="imageResult"/>
+		</action>
+		
+		<action name="home" class="com.stldesis.action.HomeAction" method="getHomePage" >
+		    <result name="success">/home.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="postFreeAd" class="com.stldesis.action.HomeAction" method="getPostFreeAdPage" >
+		    <result name="success">/post-free-ad.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="sendVerificationEmail" class="com.stldesis.action.HomeAction" method="sendVerificationEmail" >
+		    <result name="success">/ajaxfiles/aSendVerificationEmail.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aSendVerificationEmail.jsp?id=error</result>
+		</action>
+		
+		<action name="uploadPostFreeAd" class="com.stldesis.action.HomeAction" method="uploadPostFreeAd" >
+    		<interceptor-ref name="basicStack"/>
+		    <interceptor-ref name="fileUpload">
+		        <param name="allowedTypes">
+		            image/png,image/gif,image/jpeg,image/pjpeg
+		        </param>
+		    </interceptor-ref>
+    		<interceptor-ref name="defaultStack"/>
+		    <result name="success">/adPostedSuccessfully.jsp</result>
+		    <result name="input">/post-free-ad.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="classifieds/{subCategory}" class="com.stldesis.action.HomeAction" method="getClassifiedsPage" >
+		    <result name="success">/classifieds.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="classifieds/{subCategory}/{url}" class="com.stldesis.action.HomeAction" method="getClassifiedsDetailsPage" >
+		    <result name="success">/classifieds-detail.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="yellowPages/{subCategory}" class="com.stldesis.action.HomeAction" method="getYellowPagesPage" >
+		    <result name="success">/yellowPages.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="yellowPages/{subCategory}/{url}" class="com.stldesis.action.HomeAction" method="getYellowPagesDetailsPage" >
+		    <result name="success">/yellowPages-detail.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="event" class="com.stldesis.action.HomeAction" method="getEventPage" >
+		    <result name="success">/events.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="event/{url}" class="com.stldesis.action.HomeAction" method="getEventDetailsPage" >
+		    <result name="success">/event-detail.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="offers/{subCategory}" class="com.stldesis.action.HomeAction" method="getOffersPage" >
+		    <result name="success">/offers.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="offers/{subCategory}/{url}" class="com.stldesis.action.HomeAction" method="getOffersDetailsPage" >
+		    <result name="success">/offers-detail.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="placesToVisit" class="com.stldesis.action.HomeAction" method="getPlacesToVisitPage" >
+		    <result name="success">/placesToVisit.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="placesToVisit/{url}" class="com.stldesis.action.HomeAction" method="getPlacesToVisitDetailPage" >
+		    <result name="success">/places-to-visit-detail.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="movies/{subCategory}" class="com.stldesis.action.HomeAction" method="getMoviesPage" >
+		    <result name="success">/movies.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="interviews" class="com.stldesis.action.HomeAction" method="getInterviewsPage" >
+		    <result name="success">/interviews.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="interviews/{url}" class="com.stldesis.action.HomeAction" method="getInterviewsDetailPage" >
+		    <result name="success">/interview-detail.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="faq" class="com.stldesis.action.HomeAction" method="getFAQPage" >
+		    <result name="success">/faq.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="about-us" class="com.stldesis.action.HomeAction" method="getAboutUsPage" >
+		    <result name="success">/aboutus.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="testimonials" class="com.stldesis.action.HomeAction" method="getTestimonialsPage" >
+		    <result name="success">/testimonials.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="privacy-policy" class="com.stldesis.action.HomeAction" method="getPrivacyPolicyPage" >
+		    <result name="success">/privacy-policy.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="disclaimer" class="com.stldesis.action.HomeAction" method="getDisclaimerPage" >
+		    <result name="success">/disclaimer.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="contactUs" class="com.stldesis.action.HomeAction" method="getContactUsPage" >
+		    <result name="success">/contactUs.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="saveContactus" class="com.stldesis.action.HomeAction" method="saveContactus" >
+		    <result name="success">/contactUs.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="sitemap" class="com.stldesis.action.HomeAction" method="getSitemapPage" >
+		    <result name="success">/sitemap.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<!-- Admin -->
+		
+		<action name="login" class="com.stldesis.action.AdminAction" method="getLoginPage" >
+		    <result name="success">admin/login.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="forgotPassword" class="com.stldesis.action.AdminAction" method="getForgotPassword" >
+		    <result name="success">admin/forgotPassword.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="resetPassword" class="com.stldesis.action.AdminAction" method="getResetPassword" >
+		    <result name="success">admin/resetPassword.jsp</result>
+		    <result name="failure">/forgotPassword</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="updatePassword" class="com.stldesis.action.AdminAction" method="updatePassword" >
+		    <result name="success">/admin/login.jsp</result>
+		    <result name="failure">/resetpassword.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="logout" class="com.stldesis.action.AdminAction" method="getLogotPage" >
+		    <result name="success">/admin/login.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="loginUser" class="com.stldesis.action.AdminAction" method="loginUser" >
+		    <result name="success" type="redirect">/adminHome</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="changePassword" class="com.stldesis.action.AdminAction" method="getChangePasswordPage" >
+		    <result name="success">/admin/adminChangePassword.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="updateChanegedPassword" class="com.stldesis.action.AdminAction" method="updateAdminChangePassword" >
+		    <result name="success" type="redirect">/adminHome</result>
+		    <result name="failure" type="redirect">/changePassword</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<!-- Admin Home -->
+		
+		<action name="adminHome" class="com.stldesis.action.AdminAction" method="getAdminHomePage" >
+		    <result name="success">/admin/adminHome.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Classifieds -->
+		
+		<action name="adminAllClassifieds" class="com.stldesis.action.AdminAction" method="getAdminAllClassifiedsPage" >
+		    <result name="success">/admin/adminAllClassifieds.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminClassifieds" class="com.stldesis.action.AdminAction" method="getAdminAllClassifiedsPage" >
+		    <result name="success">/ajaxfiles/aClassifiedsList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aClassifiedsList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewClassifieds" class="com.stldesis.action.AdminAction" method="getAdminViewClassifiedsPage" >
+		    <result name="success">/ajaxfiles/aClassifiedsView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aClassifiedsView.jsp?id=error</result>
+		</action>
+		
+		<action name="retriveClassifiedToActive" class="com.stldesis.action.AdminAction" method="getAdminViewClassifiedsPage" >
+		    <result name="success">/ajaxfiles/aClassifiedsActive.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aClassifiedsActive.jsp?id=error</result>
+		</action>
+		
+		<action name="activateClassifieds" class="com.stldesis.action.AdminAction" method="adminActivateClassifieds" >
+		    <result name="success" type="redirect">/adminAllClassifieds</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="retriveClassifiedToInActive" class="com.stldesis.action.AdminAction" method="getAdminViewClassifiedsPage" >
+		    <result name="success">/ajaxfiles/aClassifiedsInactive.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aClassifiedsInactive.jsp?id=error</result>
+		</action>
+		
+		<action name="retriveClassifiedForDeletion" class="com.stldesis.action.AdminAction" method="getAdminViewClassifiedsPage" >
+		    <result name="success">/ajaxfiles/aClassifiedsDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aClassifiedsDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="adminEditClassifiedsPage" class="com.stldesis.action.AdminAction" method="getAdminClassifiedsEditPage" >
+		    <result name="success">/admin/adminEditClassifiedDetails.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="adminUpdateClassifieds" class="com.stldesis.action.AdminAction" method="getAdminUpdateClassifiedsPage" >
+		    <result name="success" type="redirect">/adminAllClassifieds</result>
+		    <result name="failure">/admin/adminEditYellowPages.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="deleteAdminClassifieds" class="com.stldesis.action.AdminAction" method="deleteAdminClassifieds" >
+		    <result name="success" type="redirect">/adminAllClassifieds</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Yellow Pages -->
+		
+		<action name="adminYellowPages" class="com.stldesis.action.AdminAction" method="getAdminYellowPagesList" >
+		    <result name="success">/admin/adminYellowPagesList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminYellowPagesList" class="com.stldesis.action.AdminAction" method="getAdminYellowPagesList" >
+		    <result name="success">/ajaxfiles/aYellowPagesList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aYellowPagesList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewYellowPages" class="com.stldesis.action.AdminAction" method="getAdminViewYellowPagesPage" >
+		    <result name="success">/ajaxfiles/aYellowPagesView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aYellowPagesView.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddYellowPages" class="com.stldesis.action.AdminAction" method="getAdminAddYellowPage" >
+		    <result name="success">/admin/adminAddYellowPages.jsp</result>
+		    <result name="failure" type="redirect">/adminYellowPages</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminSaveYellowPages" class="com.stldesis.action.AdminAction" method="getAdminSaveYellowPage" >
+		    <result name="success" type="redirect">/adminYellowPages</result>
+		    <result name="failure">/admin/adminAddYellowPages.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditYellowPages" class="com.stldesis.action.AdminAction" method="getAdminEditYellowPage" >
+		    <result name="success">/admin/adminEditYellowPages.jsp</result>
+		    <result name="failure" type="redirect">/adminYellowPages</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminUpdateYellowPages" class="com.stldesis.action.AdminAction" method="getAdminUpdateYellowPage" >
+		    <result name="success" type="redirect">/adminYellowPages</result>
+		    <result name="failure">/admin/adminEditYellowPages.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="dYellowPagesAdmin" class="com.stldesis.action.AdminAction" method="getAdminViewYellowPagesPage" >
+		    <result name="success">/ajaxfiles/aYellowPagesDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aYellowPagesDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminYellowPages" class="com.stldesis.action.AdminAction" method="deleteYellowPagesAdmin" >
+		    <result name="success" type="redirect">/adminYellowPages</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Events -->
+		
+		<action name="adminEventsPages" class="com.stldesis.action.AdminAction" method="getAdminEventsPage" >
+		    <result name="success">/admin/adminEventsList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminEventPagesList" class="com.stldesis.action.AdminAction" method="getAdminEventsPage" >
+		    <result name="success">/ajaxfiles/aEventsList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aEventsList.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddEvents" class="com.stldesis.action.AdminAction" method="getAdminAddEventsPage" >
+		    <result name="success">/admin/adminAddEventDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminEventsPages</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveEvents" class="com.stldesis.action.AdminAction" method="saveAdminEvents" >
+		    <result name="success" type="redirect">/adminEventsPages</result>
+		    <result name="failure">/admin/adminAddEventDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditEvents" class="com.stldesis.action.AdminAction" method="getAdminEditEventsPage" >
+		    <result name="success">/admin/adminEditEventDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminEventsPages</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updateEvents" class="com.stldesis.action.AdminAction" method="updateAdminEvents" >
+		    <result name="success" type="redirect">/adminEventsPages</result>
+		    <result name="failure">/admin/adminEditEventDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="viewAdminEvents" class="com.stldesis.action.AdminAction" method="getAdminViewEventsPage" >
+		    <result name="success">/ajaxfiles/aEventsView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aEventsView.jsp?id=error</result>
+		</action>
+		
+		<action name="dAdminEvents" class="com.stldesis.action.AdminAction" method="getAdminViewEventsPage" >
+		    <result name="success">/ajaxfiles/aEventsDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aEventsDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminEventPages" class="com.stldesis.action.AdminAction" method="deleteEventsAdmin" >
+		    <result name="success" type="redirect">/adminEventsPages</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Offers -->
+		
+		<action name="adminOffersPage" class="com.stldesis.action.AdminAction" method="getAdminOffersPage" >
+		    <result name="success">/admin/adminOffersList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminOffersPageList" class="com.stldesis.action.AdminAction" method="getAdminOffersPage" >
+		    <result name="success">/ajaxfiles/aOffersList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aOffersList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminOffers" class="com.stldesis.action.AdminAction" method="getAdminViewOffersPage" >
+		    <result name="success">/ajaxfiles/aOffersView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aOffersView.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddOffers" class="com.stldesis.action.AdminAction" method="getAdminAddOffersPage" >
+		    <result name="success">/admin/adminAddOfferDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminOffersPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveOffers" class="com.stldesis.action.AdminAction" method="saveAdminOffers" >
+			<interceptor-ref name="basicStack"/>
+		    <interceptor-ref name="fileUpload">
+		        <param name="allowedTypes">
+		            image/png,image/gif,image/jpeg,image/pjpeg
+		        </param>
+		    </interceptor-ref>
+    		<interceptor-ref name="defaultStack"/>
+		    <result name="success" type="redirect">/adminOffersPage</result>
+		    <result name="failure">/admin/adminAddOfferDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditOffers" class="com.stldesis.action.AdminAction" method="getAdminEditOffersPage" >
+		    <result name="success">/admin/adminEditOfferDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminOffersPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updateOffers" class="com.stldesis.action.AdminAction" method="updateAdminOffers" >
+			<interceptor-ref name="basicStack"/>
+		    <interceptor-ref name="fileUpload">
+		        <param name="allowedTypes">
+		            image/png,image/gif,image/jpeg,image/pjpeg
+		        </param>
+		    </interceptor-ref>
+    		<interceptor-ref name="defaultStack"/>
+		    <result name="success" type="redirect">/adminOffersPage</result>
+		    <result name="failure">/admin/adminEditOfferDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="dAdminOffers" class="com.stldesis.action.AdminAction" method="getAdminViewOffersPage" >
+		    <result name="success">/ajaxfiles/aOffersDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aOffersDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminOffersPages" class="com.stldesis.action.AdminAction" method="deleteOffersAdmin" >
+		    <result name="success" type="redirect">/adminOffersPage</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Places To Visit -->
+		
+		<action name="adminPlacesToVisitPage" class="com.stldesis.action.AdminAction" method="getAdminPlacesToVisitPage" >
+		    <result name="success">/admin/adminPlacesToVisitList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminPlacesToVisitList" class="com.stldesis.action.AdminAction" method="getAdminPlacesToVisitPage" >
+		    <result name="success">/ajaxfiles/aPlacesToVisitList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aPlacesToVisitList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminPlacesToVisit" class="com.stldesis.action.AdminAction" method="getAdminViewPlacesToVisitPage" >
+		    <result name="success">/ajaxfiles/aPlacesToVisitView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aPlacesToVisitView.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddPlacesToVisit" class="com.stldesis.action.AdminAction" method="getAdminAddPlacesToVisitPage" >
+		    <result name="success">/admin/adminAddPlacesToVisit.jsp</result>
+		    <result name="failure" type="redirect">/adminPlacesToVisitPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="savePlacesToVisit" class="com.stldesis.action.AdminAction" method="saveAdminPlacesToVisit" >
+		    <result name="success" type="redirect">/adminPlacesToVisitPage</result>
+		    <result name="failure">/admin/adminAddPlacesToVisit.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditPlacesToVisit" class="com.stldesis.action.AdminAction" method="getAdminEditPlacesToVisitPage" >
+		    <result name="success">/admin/adminEditPlacesToVisit.jsp</result>
+		    <result name="failure" type="redirect">/adminPlacesToVisitPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updatePlacesToVisit" class="com.stldesis.action.AdminAction" method="updateAdminPlacesToVisit" >
+		    <result name="success" type="redirect">/adminPlacesToVisitPage</result>
+		    <result name="failure">/admin/adminEditPlacesToVisit.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="dAdminPlacesToVisit" class="com.stldesis.action.AdminAction" method="getAdminViewPlacesToVisitPage" >
+		    <result name="success">/ajaxfiles/aPlacesToVisitDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aPlacesToVisitDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminPlacesToVisitPages" class="com.stldesis.action.AdminAction" method="deletePlacesToVisitAdmin" >
+		    <result name="success" type="redirect">/adminPlacesToVisitPage</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		
+		<!-- Admin Movies List -->
+		
+		<action name="adminMoviesListPage" class="com.stldesis.action.AdminAction" method="getAdminMoviesListPage" >
+		    <result name="success">/admin/adminMoviesList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminMovies" class="com.stldesis.action.AdminAction" method="getAdminMoviesListPage" >
+		    <result name="success">/ajaxfiles/aMoviesList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aMoviesList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminMovies" class="com.stldesis.action.AdminAction" method="getAdminViewMoviesPage" >
+		    <result name="success">/ajaxfiles/aMoviesView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aMoviesView.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddMovies" class="com.stldesis.action.AdminAction" method="getAdminAddMoviesPage" >
+		    <result name="success">/admin/adminAddMovieDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminMoviesListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveMovies" class="com.stldesis.action.AdminAction" method="saveAdminMovies" >
+		    <result name="success" type="redirect">/adminMoviesListPage</result>
+		    <result name="failure">/admin/adminAddMovieDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditMovies" class="com.stldesis.action.AdminAction" method="getAdminEditMoviesPage" >
+		    <result name="success">/admin/adminEditMovieDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminMoviesListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updateMovies" class="com.stldesis.action.AdminAction" method="updateAdminMovies" >
+		    <result name="success" type="redirect">/adminMoviesListPage</result>
+		    <result name="failure">/admin/adminEditMovieDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="dAdminMovies" class="com.stldesis.action.AdminAction" method="getAdminViewMoviesPage" >
+		    <result name="success">/ajaxfiles/aMoviesDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aMoviesDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminMoviesPages" class="com.stldesis.action.AdminAction" method="deleteMoviesAdmin" >
+		    <result name="success" type="redirect">/adminMoviesListPage</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Interviews List -->
+		
+		<action name="adminInterviewsListPage" class="com.stldesis.action.AdminAction" method="getAdminInterviewsListPage" >
+		    <result name="success">/admin/adminInterviewsList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminInterviews" class="com.stldesis.action.AdminAction" method="getAdminInterviewsListPage" >
+		    <result name="success">/ajaxfiles/aInterviewsList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aInterviewsList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminInterviews" class="com.stldesis.action.AdminAction" method="getAdminViewInterviewsPage" >
+		    <result name="success">/ajaxfiles/aInterviewsView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aInterviewsView.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddInterviews" class="com.stldesis.action.AdminAction" method="getAdminAddInterviewsPage" >
+		    <result name="success">/admin/adminAddInterviewDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminInterviewsListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveInterviews" class="com.stldesis.action.AdminAction" method="saveAdminInterviews" >
+		    <result name="success" type="redirect">/adminInterviewsListPage</result>
+		    <result name="failure">/admin/adminAddInterviewDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditInterviews" class="com.stldesis.action.AdminAction" method="getAdminEditInterviewsPage" >
+		    <result name="success">/admin/adminEditInterviewDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminInterviewsListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updateInterviews" class="com.stldesis.action.AdminAction" method="updateAdminInterviews" >
+		    <result name="success" type="redirect">/adminInterviewsListPage</result>
+		    <result name="failure">/admin/adminEditInterviewDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="dAdminInterviews" class="com.stldesis.action.AdminAction" method="getAdminViewInterviewsPage" >
+		    <result name="success">/ajaxfiles/aInterviewsDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aInterviewsDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminInterviewsPages" class="com.stldesis.action.AdminAction" method="deleteInterviewsAdmin" >
+		    <result name="success" type="redirect">/adminInterviewsListPage</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin FAQ List -->
+		
+		<action name="adminFAQListPage" class="com.stldesis.action.AdminAction" method="getAdminFAQListPage" >
+		    <result name="success">/admin/adminFAQList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminFAQs" class="com.stldesis.action.AdminAction" method="getAdminFAQListPage" >
+		    <result name="success">/ajaxfiles/aFaqList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aFaqList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminFAQs" class="com.stldesis.action.AdminAction" method="getAdminViewFAQPage" >
+		    <result name="success">/ajaxfiles/aFaqView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aFaqView.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddFAQs" class="com.stldesis.action.AdminAction" method="getAdminAddFAQPage" >
+		    <result name="success">/admin/adminAddFAQDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminFAQListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveFAQs" class="com.stldesis.action.AdminAction" method="saveAdminFAQ" >
+		    <result name="success" type="redirect">/adminFAQListPage</result>
+		    <result name="failure">/admin/adminAddFAQDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditFAQs" class="com.stldesis.action.AdminAction" method="getAdminEditFAQPage" >
+		    <result name="success">/admin/adminEditFAQDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminFAQListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updateFAQs" class="com.stldesis.action.AdminAction" method="updateAdminFAQ" >
+		    <result name="success" type="redirect">/adminFAQListPage</result>
+		    <result name="failure">/admin/adminEditFAQDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="dAdminFAQs" class="com.stldesis.action.AdminAction" method="getAdminViewFAQPage" >
+		    <result name="success">/ajaxfiles/aFaqDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aFaqDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminFAQPages" class="com.stldesis.action.AdminAction" method="deleteFAQAdmin" >
+		    <result name="success" type="redirect">/adminFAQListPage</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Ads List -->
+		
+		<action name="adminAdsListPage" class="com.stldesis.action.AdminAction" method="getAdminAdsListPage" >
+		    <result name="success">/admin/adminAdsList.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="searchAdmins" class="com.stldesis.action.AdminAction" method="searchAdmins" >
+		    <result name="success">/ajaxfiles/aSearchAdmins.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aSearchAdmins.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAdsList" class="com.stldesis.action.AdminAction" method="getAdminAdsListPage" >
+		    <result name="success">/ajaxfiles/aAdList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aAdList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewAdminAds" class="com.stldesis.action.AdminAction" method="getAdminViewAdsPage" >
+		    <result name="success">/ajaxfiles/aAdView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aAdView.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddAds" class="com.stldesis.action.AdminAction" method="getAdminAddAdsPage" >
+		    <result name="success">/admin/adminAddNewAd.jsp</result>
+		    <result name="failure" type="redirect">/adminAdsListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveAds" class="com.stldesis.action.AdminAction" method="saveAdminAds" >
+			<interceptor-ref name="basicStack"/>
+		    <interceptor-ref name="fileUpload">
+		        <param name="allowedTypes">
+		            image/png,image/gif,image/jpeg,image/pjpeg
+		        </param>
+		    </interceptor-ref>
+    		<interceptor-ref name="defaultStack"/>
+		    <result name="success" type="redirect">/adminAdsListPage</result>
+		    <result name="input" type="redirect">/adminAddAds</result>
+		    <result name="failure">/admin/adminAddNewAd.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditAds" class="com.stldesis.action.AdminAction" method="getAdminEditAdsPage" >
+		    <result name="success">/admin/adminEditAdDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminAdsListPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updateAds" class="com.stldesis.action.AdminAction" method="updateAdminAds" >
+		    <result name="success" type="redirect">/adminAdsListPage</result>
+		    <result name="failure">/admin/adminEditAdDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="dAdminAds" class="com.stldesis.action.AdminAction" method="getAdminViewAdsPage" >
+		    <result name="success">/ajaxfiles/aAdDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aAdDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminAdsPage" class="com.stldesis.action.AdminAction" method="deleteAdminAds" >
+		    <result name="success" type="redirect">/adminAdsListPage</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin All Categories -->
+		
+		<action name="adminAllCategoriesPage" class="com.stldesis.action.AdminAction" method="getAdminAllCategoriesPage" >
+		    <result name="success">/admin/adminAllCategories.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminAllCategoriesList" class="com.stldesis.action.AdminAction" method="getAdminAllCategoriesPage" >
+		    <result name="success">/ajaxfiles/aCategoryList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aCategoryList.jsp?id=error</result>
+		</action>
+		
+		<action name="adminAddCategories" class="com.stldesis.action.AdminAction" method="getAdminAddCategoriesPage" >
+		    <result name="success">/admin/adminAddNewCategory.jsp</result>
+		    <result name="failure" type="redirect">/adminAllCategoriesPage</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveCategories" class="com.stldesis.action.AdminAction" method="saveAdminCategories" >
+		    <result name="success" type="redirect">/adminAllCategoriesPage</result>
+		    <result name="failure">/admin/adminAddNewCategory.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="adminEditCategoriesPage" class="com.stldesis.action.AdminAction" method="getAdminEditCategoriesPage" >
+		    <result name="success">/admin/adminEditCategoryDetails.jsp</result>
+		    <result name="failure" type="redirect">/adminAllCategoriesPage</result>
+		    <result name="error">/error.jsp</result>
+		</action>
+		
+		<action name="updateCategories" class="com.stldesis.action.AdminAction" method="updateAdminCategories" >
+		    <result name="success" type="redirect">/adminAllCategoriesPage</result>
+		    <result name="failure">/admin/adminEditCategoryDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="viewAdminAllCategories" class="com.stldesis.action.AdminAction" method="getAdminViewAllCategoriesPage" >
+		    <result name="success">/ajaxfiles/aCategoryView.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aCategoryView.jsp?id=error</result>
+		</action>
+		
+		<action name="dAdminCategories" class="com.stldesis.action.AdminAction" method="getAdminViewAllCategoriesPage" >
+		    <result name="success">/ajaxfiles/aCategoryDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aCategoryDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteAdminCategoriesPage" class="com.stldesis.action.AdminAction" method="deleteAdminCategories" >
+		    <result name="success" type="redirect">/adminAllCategoriesPage</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admin Contactus  -->
+		
+		<action name="contactusAdmin" class="com.stldesis.action.AdminAction" method="getContactusAdminPage" >
+		    <result name="success">/admin/adminContactus.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="adminCountactUsList" class="com.stldesis.action.AdminAction" method="getContactusAdminPage" >
+		    <result name="success">/ajaxfiles/aContactusList.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aContactusList.jsp?id=error</result>
+		</action>
+		
+		<action name="viewContactusAdmin" class="com.stldesis.action.AdminAction" method="getViewContactusAdminPage" >
+		    <result name="success">/ajaxfiles/viewContactus.jsp</result>
+		    <result name="error">/ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="dContactusAdmin" class="com.stldesis.action.AdminAction" method="getViewContactusAdminPage" >
+		    <result name="success">/ajaxfiles/deleteContactus.jsp</result>
+		    <result name="error">/ajaxfiles/aMessage.jsp?id=error</result>
+		</action>
+		
+		<action name="deleteContactusAdmin" class="com.stldesis.action.AdminAction" method="deleteContactusAdmin" >
+		    <result name="success" type="redirect">/contactusAdmin</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="downloadAttachment" class="com.stldesis.action.AdminAction" method="downloadAttachment">
+			<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			  	<param name="contentDisposition">attachment;filename=${attachment}</param>
+			  	<param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<!-- Admins List -->
+		
+		<action name="listOfAdmins" class="com.stldesis.action.AdminAction" method="getListOfAdminsPage" >
+		    <result name="success">/admin/adminListOfAdmins.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<action name="dListOfAdmins" class="com.stldesis.action.AdminAction" method="getViewListOfAdminPage" >
+		    <result name="success">/ajaxfiles/aAdminDelete.jsp?id=success</result>
+		    <result name="error">/ajaxfiles/aAdminDelete.jsp?id=error</result>
+		</action>
+		
+		<action name="addAdmin" class="com.stldesis.action.AdminAction" method="addAdminDetails" >
+		    <result name="success">/admin/adminAddNewAdmin.jsp</result>
+		    <result name="failure" type="redirect">/listOfAdmins</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="saveAdmin" class="com.stldesis.action.AdminAction" method="saveAdminDetails" >
+		    <result name="success" type="redirect">/listOfAdmins</result>
+		    <result name="failure">/admin/adminAddNewAdmin.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="editAdmin" class="com.stldesis.action.AdminAction" method="editAdminDetails" >
+		    <result name="success">/admin/adminEditAdminDetails.jsp</result>
+		    <result name="failure" type="redirect">/listOfAdmins</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="updateAdmin" class="com.stldesis.action.AdminAction" method="updateAdminDetails" >
+		    <result name="success" type="redirect">/listOfAdmins</result>
+		    <result name="failure">/admin/adminEditAdminDetails.jsp</result>
+		    <result name="error">/admin/login.jsp</result>
+		</action>
+		
+		<action name="deleteAdmins" class="com.stldesis.action.AdminAction" method="deleteListOfAdmins" >
+		    <result name="success" type="redirect">/listOfAdmins</result>
+   	        <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+		<!-- Admins Account Details -->
+		
+		<action name="adminAccountDetails" class="com.stldesis.action.AdminAction" method="getAdminAccountDetailsPage" >
+		    <result name="success">/admin/adminAccountDetails.jsp</result>
+		    <result name="failure">/admin/login.jsp</result>
+		    <result name="error">/admin/adminerror.jsp</result>
+		</action>
+		
+	</package>
+	
+</struts>
